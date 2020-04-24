@@ -60,3 +60,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
 Route::get('/', 'OptionController@content');
 
 Auth::routes(['register' => false]);
+
+// * Dev Tools
+Route::get('decompose','\Lubusin\Decomposer\Controllers\DecomposerController@index');
+Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
