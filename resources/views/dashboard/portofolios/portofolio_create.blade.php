@@ -66,20 +66,20 @@
                                             @enderror
                                         </div>
                                         <div class="form-group">
-                                            <label for="status">Status</label> <br>
+                                            <label for="is_active">Status</label> <br>
                                             <div class="icheck-success icheck-inline">
-                                                <input type="radio" id="radioStatus1" name="status" value="1" {{ old('status') ? 'checked' : '' }}>
+                                                <input type="radio" id="radioStatus1" name="is_active" value="1" {{ old('is_active') ? 'checked' : '' }}>
                                                 <label for="radioStatus1">
                                                     Aktif
                                                 </label>
                                             </div>
                                             <div class="icheck-success icheck-inline">
-                                                <input type="radio" id="radioStatus2" name="status" value="0" {{ old('status') ? 'checked' : '' }}>
+                                                <input type="radio" id="radioStatus2" name="is_active" value="0" {{ old('is_active') ? 'checked' : '' }}>
                                                 <label for="radioStatus2">
                                                     Tidak Aktif
                                                 </label>
                                             </div>
-                                            @error('status')
+                                            @error('is_active')
                                             <p class="text-danger">{{ $message }}</p>
                                             @enderror
                                         </div>

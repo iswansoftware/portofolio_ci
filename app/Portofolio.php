@@ -13,7 +13,7 @@ class Portofolio extends Model
      * @var array
      */
     protected $casts = [
-        'status' => 'boolean',
+        'is_active' => 'boolean',
     ];
 
     public function user()
@@ -23,8 +23,8 @@ class Portofolio extends Model
 
     public function scopeActive($query)
     {
-        return $query->where('user_id', Auth::id())
-            ->where('status', 1);
+        return $query->where('is_active', 1);
+    }
     }
 
     public function getImageLinkAttribute()

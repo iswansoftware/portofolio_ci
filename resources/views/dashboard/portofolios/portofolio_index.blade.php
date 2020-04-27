@@ -89,7 +89,7 @@
                                     <tr>
                                         <td>{{ $item->title }}</td>
                                         <td>
-                                            @if ($item->status)
+                                            @if ($item->is_active)
                                             <span class="badge badge-success">Aktif</span>
                                             @else
                                             <span class="badge badge-secondary">Tidak Aktif</span>

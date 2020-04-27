@@ -58,7 +58,7 @@ class PortofolioController extends Controller
         $rules = [
             'image' => 'required|image|max:2048',
             'title' => 'required|min:8|unique:portofolios,title',
-            'status' => 'required',
+            'is_active' => 'required',
             'description' => 'required|min:10'
         ];
 
@@ -69,7 +69,7 @@ class PortofolioController extends Controller
             'title.required' => 'Judul harus diisi',
             'title.min' => 'Minimal 8 karakter',
             'title.unique' => 'Judul sudah ada',
-            'status.required' => 'Status harus dipilih',
+            'is_active.required' => 'Status harus dipilih',
             'description.required' => 'Deskripsi harus diisi',
             'description.min' => 'Deskripsi minimal 10 karakter'
         ];
@@ -77,7 +77,7 @@ class PortofolioController extends Controller
         $this->validate($request, $rules, $ruleMessages);
 
         $title = $request->title;
-        $status = $request->status;
+        $status = $request->is_active;
         $image = $request->image;
         $description = $request->description;
         $userId = Auth::id();
@@ -100,7 +100,7 @@ class PortofolioController extends Controller
 
             $portofolio->user_id = $userId;
             $portofolio->title = $title;
-            $portofolio->status = $status;
+            $portofolio->is_active = $status;
             $portofolio->image = $fileName;
             $portofolio->description = $description;
 
@@ -163,7 +163,7 @@ class PortofolioController extends Controller
         $rules = [
             'image' => 'image|max:2048',
             'title' => 'required|min:8|unique:portofolios,title,' . $id,
-            'status' => 'required',
+            'is_active' => 'required',
             'description' => 'required|min:10'
         ];
 
@@ -173,7 +173,7 @@ class PortofolioController extends Controller
             'title.required' => 'Judul harus diisi',
             'title.min' => 'Minimal 8 karakter',
             'title.unique' => 'Judul sudah ada',
-            'status.required' => 'Status harus dipilih',
+            'is_active.required' => 'Status harus dipilih',
             'description.required' => 'Deskripsi harus diisi',
             'description.min' => 'Deskripsi minimal 10 karakter'
         ];
@@ -181,7 +181,7 @@ class PortofolioController extends Controller
         $this->validate($request, $rules, $ruleMessages);
 
         $title = $request->title;
-        $status = $request->status;
+        $status = $request->is_active;
         $image = $request->image;
         $description = $request->description;
         $userId = Auth::id();
@@ -211,7 +211,7 @@ class PortofolioController extends Controller
 
             $portofolio->user_id = $userId;
             $portofolio->title = $title;
-            $portofolio->status = $status;
+            $portofolio->is_active = $status;
             $portofolio->description = $description;
 
             $portofolio->save();

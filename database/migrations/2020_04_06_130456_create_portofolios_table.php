@@ -15,12 +15,16 @@ class CreatePortofoliosTable extends Migration
     {
         Schema::create('portofolios', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('user_id')->index();
+            $table->unsignedBigInteger('user_id');
             $table->string('image', 100);
             $table->string('title', 50)->unique();
-            $table->string('description', 500);
-            $table->string('status', 50);
+            $table->longtext('description');
+            $table->boolean('is_active')->default(1);
+            $table->boolean('is_choose')->default(0);
             $table->timestamps();
+
+            $table->index(['user_id']);
+            $table->index(['is_active', 'is_choose']);
         });
     }
 
