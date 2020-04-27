@@ -80,6 +80,9 @@ class PortofolioController extends Controller
         $status = $request->is_active;
         $image = $request->image;
         $description = $request->description;
+
+        $choose = 0;
+
         $userId = Auth::id();
 
         DB::beginTransaction();
@@ -101,6 +104,7 @@ class PortofolioController extends Controller
             $portofolio->user_id = $userId;
             $portofolio->title = $title;
             $portofolio->is_active = $status;
+            $portofolio->is_choose = $choose;
             $portofolio->image = $fileName;
             $portofolio->description = $description;
 
@@ -123,9 +127,52 @@ class PortofolioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function choose(Request $request)
     {
-        //
+        $choose = $request->is_choose;
+
+        if ($choose == null) {
+            DB::beginTransaction();
+
+            try {
+                Portofolio::where('is_choose', 1)
+                    ->update(['is_choose' => 0]);
+
+                DB::commit();
+            } catch (exception $e) {
+                DB::rollback();
+                log::error($e);
+            }
+
+            return redirect()
+                ->back()
+                ->with('warning', 'Portofolio tidak ada yang ditampilkan!');
+        } else {
+
+            Portofolio::where('is_choose', 1)
+                ->update(['is_choose' => 0]);
+            
+                foreach ($choose as $id) {
+                $portofolio = Portofolio::find($id);
+
+                DB::beginTransaction();
+
+                try {
+                    $portofolio->is_choose = 1;
+
+                    $portofolio->save();
+
+                    DB::commit();
+                } catch (Exception $e) {
+                    DB::rollback();
+                    Log::error($e);
+                }
+            }
+
+            return redirect()
+                ->back()
+                ->with('success', 'Portofolio yang dipilih berhasil ditampilkan!');
+        }
     }
 
     /**

@@ -23,8 +23,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         ->name('dashboard.portofolio.create');
     Route::post('/portofolio/store', 'PortofolioController@store')
         ->name('dashboard.portofolio.store');
-    Route::get('/portofolio/{id}/show', 'PortofolioController@show')
-        ->name('dashboard.portofolio.show');
+    Route::post('/portofolio/choose', 'PortofolioController@choose')
+        ->name('dashboard.portofolio.choose');
     Route::get('/portofolio/{id}/edit', 'PortofolioController@edit')
         ->name('dashboard.portofolio.edit');
     Route::post('/portofolio/update/{id}', 'PortofolioController@update')

@@ -14,6 +14,7 @@ class Portofolio extends Model
      */
     protected $casts = [
         'is_active' => 'boolean',
+        'is_choose' => 'boolean'
     ];
 
     public function user()
@@ -25,6 +26,10 @@ class Portofolio extends Model
     {
         return $query->where('is_active', 1);
     }
+
+    public function scopeShow($query)
+    {
+        return $query->where('is_choose', 1);
     }
 
     public function getImageLinkAttribute()

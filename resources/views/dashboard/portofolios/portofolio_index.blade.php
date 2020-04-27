@@ -94,6 +94,11 @@
                                             @else
                                             <span class="badge badge-secondary">Tidak Aktif</span>
                                             @endif
+                                            @if ($item->is_choose)
+                                            <span class="badge badge-success">Tampil</span>
+                                            @else
+                                            <span class="badge badge-secondary">Tidak Tampil</span>
+                                            @endif
                                         </td>
                                         <td>{{ $item->created_at->format('d M Y') }}</td>
                                         <td class="text-center">
@@ -189,28 +194,26 @@
 <div class="modal fade" id="chooseModal">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header bg-warning">
+            <div class="modal-header bg-orange">
                 <h4 class="modal-title">Pilih Portofolio</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="" method="post">
+            <form action="{{ route('dashboard.portofolio.choose') }}" method="post">
                 @csrf
                 <div class="modal-body">
                     <div class="form-group">
                         <label>Minimal</label>
-                        <select class="select2" style="width: 100%;">
-                            @forelse ($portofolio as $item)
-                            <option value="{{ $item->id }}">{{ $item->title }}</option>
-                            @empty
-                            <option selected hidden disabled>Belum ada portofolio</option>
-                            @endforelse
+                        <select name="is_choose[]" class="select2 select2-blue" style="width: 100%;">
+                            @foreach ($portofolio as $item)
+                            <option value="{{ $item->id }}" {{ $item->is_choose ? 'selected' : '' }}>{{ $item->title }}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
                 <div class="modal-footer justify-content-between">
-                    <button type="submit" class="btn btn-warning">Simpan</button>
+                    <button type="submit" class="btn bg-orange">Simpan</button>
                     <button type="button" class="btn btn-link text-secondary" data-dismiss="modal">Batal</button>
                 </div>
             </form>
@@ -224,7 +227,7 @@
 
 @section('footer-script')
 <script type="text/javascript">
-    $(function () {
+    $(document).ready(function () {
         $("#dataTable").DataTable({
             "responsive": true,
             "autoWidth": false,
@@ -232,7 +235,7 @@
         $('.select2').select2({
             maximumSelectionLength: 2,
             multiple: true,
-            placeholder: "Maksimal pilih 5",
+            placeholder: "Maksimal pilih 2",
         });
     });
 </script>

@@ -16,8 +16,8 @@ class OptionController extends Controller
 {
     public function content()
     {
-        $portofolio = Portofolio::where('status', 1)
-            ->take(6)
+        $portofolio = Portofolio::active()
+            ->show()
             ->get();
 
         $greeting = Option::where('type', 'navigation')
