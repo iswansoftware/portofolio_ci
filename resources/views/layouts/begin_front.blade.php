@@ -13,6 +13,8 @@
     type="text/css" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="{{ asset('front/css/styles.css') }}" rel="stylesheet" />
+    <!-- SweetAlert2 -->
+    <link href="{{ asset('back/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}" rel="stylesheet">
 </head>
 
 <body id="page-top">
@@ -27,8 +29,27 @@
     <!-- Font Awesome icons (free version)-->
     <script src="{{ asset('front/assets/icon/fontawesome.js') }}"></script>
     <!-- Contact form JS-->
-    <script src="{{ asset('front/assets/mail/jqBootstrapValidation.js') }}"></script>
-    <script src="{{ asset('front/assets/mail/contact_me.js') }}"></script>
+    {{-- <script src="{{ asset('front/assets/mail/jqBootstrapValidation.js') }}"></script>
+    <script src="{{ asset('front/assets/mail/contact_me.js') }}"></script> --}}
+    <!-- SweetAlert2 -->
+    <script src="{{ asset('back/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+    <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000
+        });
+        var success = '{{ Session::has('success') }}';
+
+        if(success){
+            Toast.fire({
+                icon: 'success',
+                title: '{{ Session::get('success') }}'
+            })
+        }
+
+    </script>
 </body>
 
 </html>

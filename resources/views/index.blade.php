@@ -61,6 +61,7 @@
                         height="240" />
                 </div>
             </div>
+            <!-- Portfolio Modals-->
             <div class="portfolio-modal modal fade" id="portfolioModal{{ $item->id }}" tabindex="-1" role="dialog"
                 aria-labelledby="portfolioModal1Label" aria-hidden="true">
                 <div class="modal-dialog modal-xl" role="document">
@@ -139,42 +140,36 @@
         <div class="row">
             <div class="col-lg-8 mx-auto">
                 <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19.-->
-                <form id="contactForm" name="sentMessage" novalidate="novalidate">
+                <form action="{{ route('message.store') }}" method="POST">
+                    @csrf
                     <div class="control-group">
                         <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                            <label>Nama</label><input class="form-control" id="name" type="text" placeholder="Nama"
-                                required="required" data-validation-required-message="Please enter your name." />
-                            <p class="help-block text-danger"></p>
+                            <label>Nama</label>
+                            <input class="form-control" name="name" type="text" placeholder="Nama">
+                            @error('name')
+                            <p class="text-danger">{{ $message }}</p>
+                            @enderror
                         </div>
                     </div>
                     <div class="control-group">
                         <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                            <label>Email</label><input class="form-control" id="email" type="email"
-                                placeholder="Email Address" required="required"
-                                data-validation-required-message="Please enter your email address." />
-                            <p class="help-block text-danger"></p>
+                            <label>Email</label>
+                            <input class="form-control" name="email" type="email" placeholder="Email Address">
+                            @error('email')
+                            <p class="text-danger">{{ $message }}</p>
+                            @enderror
                         </div>
                     </div>
                     <div class="control-group">
                         <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                            <label>No HP</label><input class="form-control" id="phone" type="tel" placeholder="No Hp"
-                                required="required"
-                                data-validation-required-message="Please enter your phone number." />
-                            <p class="help-block text-danger"></p>
+                            <label>Pesan</label>
+                            <textarea class="form-control" name="message" rows="5" placeholder="Pesan"></textarea>
+                            @error('message')
+                            <p class="text-danger">{{ $message }}</p>
+                            @enderror
                         </div>
                     </div>
-                    <div class="control-group">
-                        <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                            <label>Pesan</label><textarea class="form-control" id="message" rows="5" placeholder="Pesan"
-                                required="required"
-                                data-validation-required-message="Please enter a message."></textarea>
-                            <p class="help-block text-danger"></p>
-                        </div>
-                    </div>
-                    <br />
-                    <div id="success"></div>
-                    <div class="form-group"><button class="btn btn-primary btn-xl" id="sendMessageButton"
-                            type="submit">Kirim</button></div>
+                    <div class="form-group"><button class="btn btn-primary btn-xl" type="submit">Kirim</button></div>
                 </form>
             </div>
         </div>
@@ -225,7 +220,4 @@
     <a class="js-scroll-trigger d-block text-center text-white rounded" href="#page-top"><i
             class="fa fa-chevron-up"></i></a>
 </div>
-<!-- Portfolio Modals-->
-<!-- Portfolio Modal 1-->
-
 @endsection

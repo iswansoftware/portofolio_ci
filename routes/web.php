@@ -46,6 +46,12 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
     Route::post('/option/update/{id}/motivation', 'OptionController@motivation')
         ->name('dashboard.motivation.update');
 
+    //* Message
+    Route::get('/messages', 'MessageController@index')
+        ->name('dashboard.message.index');
+    Route::post('/messages/destroy/{id}', 'MessageController@destroy')
+        ->name('dashboard.message.destroy');
+
     //*  Account
     Route::get('/account/setting', 'UserController@setting')
         ->name('dashboard.account.setting');
@@ -57,10 +63,15 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         ->name('dashboard.account.update.password');
 });
 
+//* Landing Page
 Route::get('/', 'OptionController@content');
+
+//* Store New Message
+Route::post('/store', 'MessageController@store')
+    ->name('message.store');
 
 Auth::routes(['register' => false]);
 
 // * Dev Tools
-Route::get('decompose','\Lubusin\Decomposer\Controllers\DecomposerController@index');
+Route::get('decompose', '\Lubusin\Decomposer\Controllers\DecomposerController@index');
 Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');

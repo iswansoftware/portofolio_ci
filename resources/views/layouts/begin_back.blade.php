@@ -114,6 +114,14 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="{{ route('dashboard.message.index') }}" class="nav-link @yield('message')">
+                                <i class="nav-icon fas fa-envelope"></i>
+                                <p>
+                                    Pesan
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{ route('dashboard.option.index') }}" class="nav-link @yield('option')">
                                 <i class="nav-icon fas fa-cog"></i>
                                 <p>
