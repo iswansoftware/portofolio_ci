@@ -73,5 +73,6 @@ Route::post('/store', 'MessageController@store')
 Auth::routes(['register' => false]);
 
 // * Dev Tools
-Route::get('decompose', '\Lubusin\Decomposer\Controllers\DecomposerController@index');
 Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
+
+Auth::routes();
