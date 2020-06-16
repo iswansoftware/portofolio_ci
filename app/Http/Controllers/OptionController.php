@@ -17,22 +17,21 @@ class OptionController extends Controller
     public function content()
     {
         $portofolio = Portofolio::active()
-            ->show()
             ->get();
 
-        $greeting = Option::where('type', 'navigation')
+        $greeting = Option::whereType('navigation')
             ->first();
 
-        $skill = Option::where('type', 'masthead-subheading')
+        $skill = Option::whereType('masthead-subheading')
             ->first();
 
-        $aboutMe = Option::where('type', 'about-section')
+        $aboutMe = Option::whereType('about-section')
             ->first();
 
-        $location = Option::where('type', 'footer-location')
+        $location = Option::whereType('footer-location')
             ->first();
 
-        $motivation = Option::where('type', 'footer-motivation')
+        $motivation = Option::whereType('footer-motivation')
             ->first();
 
         $user = User::first();

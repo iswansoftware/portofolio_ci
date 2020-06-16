@@ -19,7 +19,6 @@ class CreatePortofoliosTable extends Migration
             $table->string('image', 100);
             $table->string('title', 50)->unique();
             $table->longtext('description');
-            $table->boolean('is_active')->default(1);
             $table->boolean('is_choose')->default(0);
             $table->timestamps();
 

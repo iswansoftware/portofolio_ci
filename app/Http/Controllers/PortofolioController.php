@@ -122,60 +122,6 @@ class PortofolioController extends Controller
     }
 
     /**
-     * * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function choose(Request $request)
-    {
-        $choose = $request->is_choose;
-
-        if ($choose == null) {
-            DB::beginTransaction();
-
-            try {
-                Portofolio::where('is_choose', 1)
-                    ->update(['is_choose' => 0]);
-
-                DB::commit();
-            } catch (exception $e) {
-                DB::rollback();
-                log::error($e);
-            }
-
-            return redirect()
-                ->back()
-                ->with('warning', 'Portofolio tidak ada yang ditampilkan!');
-        } else {
-
-            Portofolio::where('is_choose', 1)
-                ->update(['is_choose' => 0]);
-            
-                foreach ($choose as $id) {
-                $portofolio = Portofolio::find($id);
-
-                DB::beginTransaction();
-
-                try {
-                    $portofolio->is_choose = 1;
-
-                    $portofolio->save();
-
-                    DB::commit();
-                } catch (Exception $e) {
-                    DB::rollback();
-                    Log::error($e);
-                }
-            }
-
-            return redirect()
-                ->back()
-                ->with('success', 'Portofolio yang dipilih berhasil ditampilkan!');
-        }
-    }
-
-    /**
      * * Show the form for editing the specified resource.
      *
      * @param  int  $id

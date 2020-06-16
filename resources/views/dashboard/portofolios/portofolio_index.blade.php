@@ -15,10 +15,6 @@
                     <h4 class="m-0 text-dark"><span class="pr-2 fas fa-file-alt"></span> Portofolio</h4>
                 </div>
                 <div class="col-sm-6 text-right">
-                    <button class="btn bg-gradient-warning" data-toggle="modal" data-target="#chooseModal">
-                        <i class="fas fa-list pr-2"></i>
-                        Pilih Portofolio
-                    </button>
                     <a href="{{ route('dashboard.portofolio.create') }}" class="btn bg-gradient-indigo"><i
                             class="fas fa-plus pr-2"></i> Tambah
                         Portofolio</a>
@@ -93,11 +89,6 @@
                                             <span class="badge badge-success">Aktif</span>
                                             @else
                                             <span class="badge badge-secondary">Tidak Aktif</span>
-                                            @endif
-                                            @if ($item->is_choose)
-                                            <span class="badge badge-success">Tampil</span>
-                                            @else
-                                            <span class="badge badge-secondary">Tidak Tampil</span>
                                             @endif
                                         </td>
                                         <td>{{ $item->created_at->format('d M Y') }}</td>
@@ -189,40 +180,6 @@
     <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
-
-<!-- Choose Modal -->
-<div class="modal fade" id="chooseModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header bg-orange">
-                <h4 class="modal-title">Pilih Portofolio</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form action="{{ route('dashboard.portofolio.choose') }}" method="post">
-                @csrf
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label>Minimal</label>
-                        <select name="is_choose[]" class="select2 select2-blue" style="width: 100%;">
-                            @foreach ($portofolio as $item)
-                            <option value="{{ $item->id }}" {{ $item->is_choose ? 'selected' : '' }}>{{ $item->title }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                <div class="modal-footer justify-content-between">
-                    <button type="submit" class="btn bg-orange">Simpan</button>
-                    <button type="button" class="btn btn-link text-secondary" data-dismiss="modal">Batal</button>
-                </div>
-            </form>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div>
-<!-- /.choose modal -->
 @endsection
 
 @section('footer-script')
@@ -231,11 +188,6 @@
         $("#dataTable").DataTable({
             "responsive": true,
             "autoWidth": false,
-        });
-        $('.select2').select2({
-            maximumSelectionLength: 2,
-            multiple: true,
-            placeholder: "Maksimal pilih 2",
         });
     });
 </script>
