@@ -11,13 +11,18 @@ use App\Portofolio;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Cache;
 
 class OptionController extends Controller
 {
     public function content()
     {
-        $portofolio = Portofolio::active()
-            ->get();
+        $query = Cache::rememberForever('portofolio', function () {
+            return Portofolio::active()
+                ->get();
+        });
+
+        $portofolio = $query;
 
         $greeting = Option::whereType('navigation')
             ->first();

@@ -11,6 +11,7 @@ use App\Portofolio;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class PortofolioController extends Controller
@@ -22,8 +23,10 @@ class PortofolioController extends Controller
      */
     public function index()
     {
-        $activeCount = Portofolio::active()
-            ->count();
+        $activeCount = Cache::rememberForever('active_count', function () {
+            return Portofolio::active()
+                ->count();
+        });
 
         $portofolioCount = Portofolio::count();
 
