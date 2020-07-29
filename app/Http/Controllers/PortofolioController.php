@@ -61,7 +61,6 @@ class PortofolioController extends Controller
         $rules = [
             'image' => 'required|image|max:2048',
             'title' => 'required|min:8|unique:portofolios,title',
-            'is_active' => 'required',
             'description' => 'required|min:10'
         ];
 
@@ -72,7 +71,6 @@ class PortofolioController extends Controller
             'title.required' => 'Judul harus diisi',
             'title.min' => 'Minimal 8 karakter',
             'title.unique' => 'Judul sudah ada',
-            'is_active.required' => 'Status harus dipilih',
             'description.required' => 'Deskripsi harus diisi',
             'description.min' => 'Deskripsi minimal 10 karakter'
         ];
@@ -80,11 +78,8 @@ class PortofolioController extends Controller
         $this->validate($request, $rules, $ruleMessages);
 
         $title = $request->title;
-        $status = $request->is_active;
         $image = $request->image;
         $description = $request->description;
-
-        $choose = 0;
 
         $userId = Auth::id();
 
@@ -95,19 +90,17 @@ class PortofolioController extends Controller
                 $fileName = $image->getClientOriginalName();
                 $fileExtension = $image->getClientOriginalExtension();
 
-                $fileName = str_replace('.' . $fileExtension, '', $fileName);
-                $fileName = 'portofolio_' . substr(str_slug($fileName, '-'), 0, 180) . '.' . $fileExtension;
-                $file_path = 'back/uploads/portofolio/';
+                $fileName = Str::replaceLast('.' . $fileExtension, '', $fileName);
+                $fileName = 'p_' . Str::substr(Str::slug($fileName, '-'), 0, 180) . '.' . $fileExtension;
+                $filePath = 'back/uploads/portofolios/';
 
-                $image->move($file_path, $fileName);
+                $image->move($filePath, $fileName);
             }
 
             $portofolio = new Portofolio();
 
             $portofolio->user_id = $userId;
             $portofolio->title = $title;
-            $portofolio->is_active = $status;
-            $portofolio->is_choose = $choose;
             $portofolio->image = $fileName;
             $portofolio->description = $description;
 
@@ -159,7 +152,6 @@ class PortofolioController extends Controller
         $rules = [
             'image' => 'image|max:2048',
             'title' => 'required|min:8|unique:portofolios,title,' . $id,
-            'is_active' => 'required',
             'description' => 'required|min:10'
         ];
 
@@ -169,7 +161,6 @@ class PortofolioController extends Controller
             'title.required' => 'Judul harus diisi',
             'title.min' => 'Minimal 8 karakter',
             'title.unique' => 'Judul sudah ada',
-            'is_active.required' => 'Status harus dipilih',
             'description.required' => 'Deskripsi harus diisi',
             'description.min' => 'Deskripsi minimal 10 karakter'
         ];
@@ -177,7 +168,6 @@ class PortofolioController extends Controller
         $this->validate($request, $rules, $ruleMessages);
 
         $title = $request->title;
-        $status = $request->is_active;
         $image = $request->image;
         $description = $request->description;
         $userId = Auth::id();
@@ -192,10 +182,10 @@ class PortofolioController extends Controller
                 $fileExtension = $image->getClientOriginalExtension();
 
                 $fileName = Str::replaceLast('.' . $fileExtension, '', $fileName);
-                $fileName = 'portofolio_' . Str::substr(Str::slug($fileName, '-'), 0, 180) . '.' . $fileExtension;
-                $file_path = 'back/uploads/portofolio/';
+                $fileName = 'p_' . Str::substr(Str::slug($fileName, '-'), 0, 180) . '.' . $fileExtension;
+                $filePath = 'back/uploads/portofolios/';
 
-                $upload = $image->move($file_path, $fileName);
+                $upload = $image->move($filePath, $fileName);
 
                 if ($upload) {
                     $oldImage = $portofolio->image;
@@ -207,7 +197,6 @@ class PortofolioController extends Controller
 
             $portofolio->user_id = $userId;
             $portofolio->title = $title;
-            $portofolio->is_active = $status;
             $portofolio->description = $description;
 
             $portofolio->save();
@@ -236,7 +225,7 @@ class PortofolioController extends Controller
         DB::beginTransaction();
 
         try {
-            File::delete('back/uploads/portofolio/' . $portofolio->image);
+            File::delete('back/uploads/portofolios/' . $portofolio->image);
 
             $portofolio->delete();
 
