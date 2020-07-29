@@ -23,7 +23,7 @@ class PortofolioController extends Controller
      */
     public function index()
     {
-        $activeCount = Cache::rememberForever('active_count', function () {
+        $activeCount = Cache::remember('active_count', 60, function () {
             return Portofolio::active()
                 ->count();
         });

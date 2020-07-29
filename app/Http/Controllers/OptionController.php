@@ -17,7 +17,7 @@ class OptionController extends Controller
 {
     public function content()
     {
-        $query = Cache::rememberForever('portofolio', function () {
+        $query = Cache::remember('portofolio', 30 * 60, function () {
             return Portofolio::active()
                 ->get();
         });
