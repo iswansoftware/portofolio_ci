@@ -11,8 +11,7 @@ class DashboardController extends Controller
     {
         $portofolioCount = Portofolio::count();
 
-        $portofolio = Portofolio::active()
-            ->get();
+        $portofolio = Portofolio::all();
 
         return view('dashboard.index')
             ->with([

@@ -23,7 +23,6 @@ class CreatePortofoliosTable extends Migration
             $table->timestamps();
 
             $table->index(['user_id']);
-            $table->index(['is_active', 'is_choose']);
         });
     }
 

@@ -23,11 +23,11 @@ class Portofolio extends Model
 
     public function scopeActive($query)
     {
-        return $query->where('is_active', 1);
+        return $query->where('is_choose', 1);
     }
 
     public function getImageLinkAttribute()
     {
-        return asset('back/uploads/portofolio/' . $this->image);
+        return asset('back/uploads/portofolios/' . $this->image);
     }
 }
