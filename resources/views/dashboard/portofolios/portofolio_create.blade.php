@@ -46,7 +46,7 @@
                                     </div>
                                     <div class="col-sm-8">
                                         <div class="form-group">
-                                            <label for="image">Gambar</label>
+                                            <label for="image">Gambar <span class="text-danger">*</span></label>
                                             <div class="custom-file">
                                                 <input type="file" name="image" class="custom-file-input" id="image">
                                                 <label class="custom-file-label">Pilih file</label>
@@ -58,28 +58,10 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="title">Judul</label>
+                                            <label for="title">Judul <span class="text-danger">*</span></label>
                                             <input type="text" name="title" class="form-control"
                                                 value="{{ old('title') }}" placeholder="Masukkan judul...">
                                             @error('title')
-                                            <p class="text-danger">{{ $message }}</p>
-                                            @enderror
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="is_active">Status</label> <br>
-                                            <div class="icheck-success icheck-inline">
-                                                <input type="radio" id="radioStatus1" name="is_active" value="1" {{ old('is_active') ? 'checked' : '' }}>
-                                                <label for="radioStatus1">
-                                                    Aktif
-                                                </label>
-                                            </div>
-                                            <div class="icheck-success icheck-inline">
-                                                <input type="radio" id="radioStatus2" name="is_active" value="0" {{ old('is_active') ? 'checked' : '' }}>
-                                                <label for="radioStatus2">
-                                                    Tidak Aktif
-                                                </label>
-                                            </div>
-                                            @error('is_active')
                                             <p class="text-danger">{{ $message }}</p>
                                             @enderror
                                         </div>
@@ -88,7 +70,7 @@
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="form-group">
-                                            <label for="description">Deskripsi</label>
+                                            <label for="description">Deskripsi <span class="text-danger">*</span></label>
                                             <textarea class="textarea"
                                                 name="description">{{ old('description') }}</textarea>
                                             @error('description')

@@ -65,24 +65,6 @@
                                             <p class="text-danger">{{ $message }}</p>
                                             @enderror
                                         </div>
-                                        <div class="form-group">
-                                            <label for="is_active">Status</label> <br>
-                                            <div class="icheck-success icheck-inline">
-                                                <input type="radio" id="radioStatus1" name="is_active" value="1" {{ $portofolio->is_active ? 'checked' : '' }}>
-                                                <label for="radioStatus1">
-                                                    Aktif
-                                                </label>
-                                            </div>
-                                            <div class="icheck-success icheck-inline">
-                                                <input type="radio" id="radioStatus2" name="is_active" value="0" {{ $portofolio->is_active ? '' : 'checked' }}>
-                                                <label for="radioStatus2">
-                                                    Tidak Aktif
-                                                </label>
-                                            </div>
-                                            @error('is_active')
-                                            <p class="text-danger">{{ $message }}</p>
-                                            @enderror
-                                        </div>
                                     </div>
                                 </div>
                                 <div class="row">
