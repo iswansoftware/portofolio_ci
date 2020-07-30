@@ -15,6 +15,8 @@
                     <h4 class="m-0 text-dark"><span class="pr-2 fas fa-file-alt"></span> Portofolio</h4>
                 </div>
                 <div class="col-sm-6 text-right">
+                    <a href="#" data-toggle="modal" data-target="#statuses" class="btn bg-gradient-green"><i
+                            class="fas fa-list pr-2"></i> Ubah Status</a>
                     <a href="{{ route('dashboard.portofolio.create') }}" class="btn bg-gradient-indigo"><i
                             class="fas fa-plus pr-2"></i> Tambah
                         Portofolio</a>
@@ -85,7 +87,7 @@
                                     <tr>
                                         <td>{{ $item->title }}</td>
                                         <td>
-                                            @if ($item->is_active)
+                                            @if ($item->is_choose)
                                             <span class="badge badge-success">Aktif</span>
                                             @else
                                             <span class="badge badge-secondary">Tidak Aktif</span>
@@ -180,6 +182,38 @@
     <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
+
+<!-- Statuses -->
+<div class="modal fade" id="statuses">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-green"><i class="fas fa-list pr-2"></i> Ubah Status</h4>
+            </div>
+            <form action="{{ route('dashboard.portofolio.choose') }}" method="post">
+                @csrf
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="portofolio">Portofolio <span class="text-danger">*</span></label>
+                        <select name="choose[]" class="select2" multiple="multiple" data-placeholder="Pilih portofolio"
+                            style="width: 100%;" required>
+                            @foreach($portofolio as $item)
+                            <option value="{{ $item->id }}" {{ $item->is_choose == 1 ? 'selected' : ''}}>{{ $item->title }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success"><i class="fas fa-save pr-2"></i> Perbarui</button>
+                    <button type="button" class="btn btn-link text-secondary" data-dismiss="modal"><i
+                            class="fas fa-times pr-2"></i> Batal</button>
+                </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
 @endsection
 
 @section('footer-script')
@@ -189,6 +223,7 @@
             "responsive": true,
             "autoWidth": false,
         });
+        $('.select2').select2();
     });
 </script>
 @endsection

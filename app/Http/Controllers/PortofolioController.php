@@ -239,4 +239,33 @@ class PortofolioController extends Controller
             ->back()
             ->with('success', 'Portofolio berhasil dihapus');
     }
+
+    public function choose(Request $request)
+    {
+        $choose = $request->choose;
+        $statuses = 0;
+
+        DB::beginTransaction();
+
+        try {
+            Portofolio::whereNotIn('id', $choose)
+                ->update(['is_choose' => 0]);
+
+            Portofolio::whereIn('id', $choose)
+                ->update(['is_choose' => 1]);
+
+            DB::commit();
+
+            return redirect()
+                ->back()
+                ->with('success', 'Status berhasil diperbarui');
+        } catch (Exception $e) {
+            DB::rollback();
+            Log::error($e);
+
+            return redirect()
+                ->back()
+                ->with('error', 'Auch, ada yang salah!');
+        }
+    }
 }
